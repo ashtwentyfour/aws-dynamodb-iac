@@ -1,0 +1,20 @@
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Local variable files may contain AWS credentials or environment-specific values.
+terraform.tfvars
+*.auto.tfvars
+
+# Common AWS CLI and local env artifacts.
+.aws/
+.env
+.env.*
