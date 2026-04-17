@@ -1,20 +1,22 @@
 # aws-dynamodb-iac
 
-Terraform configuration for creating multiple DynamoDB tables from a list input
+Terraform configuration for creating multiple DynamoDB tables and SQS queues from list inputs
 
 ## What it does
 
 - Stores Terraform state in the S3 bucket `tf-state-871834100302-us-east-1-an`
 - Creates one DynamoDB table per entry in `table_names`
+- Creates one SQS queue per entry in `queue_names`
 - Uses on-demand billing (`PAY_PER_REQUEST`)
 - Applies the same string partition key to every table, defaulting to `pk`
+- Applies shared tags to all created resources
 
 ## Files
 
 - `versions.tf`: Terraform, provider, and remote backend configuration
 - `variables.tf`: Input variables
-- `main.tf`: AWS provider and DynamoDB table resources
-- `outputs.tf`: Table name and ARN outputs
+- `main.tf`: AWS provider, DynamoDB table, and SQS queue resources
+- `outputs.tf`: Table and queue name/ARN outputs
 - `terraform.tfvars.example`: Example variable values
 - `env/dev.tfvars`: Development environment values
 

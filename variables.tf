@@ -10,6 +10,12 @@ variable "table_names" {
   default     = ["demo"]
 }
 
+variable "queue_names" {
+  description = "List of SQS queue names to create."
+  type        = list(string)
+  default     = []
+}
+
 variable "hash_key_name" {
   description = "Partition key attribute name applied to every table."
   type        = string
@@ -17,7 +23,7 @@ variable "hash_key_name" {
 }
 
 variable "tags" {
-  description = "Tags applied to all DynamoDB tables."
+  description = "Tags applied to all resources created by this configuration."
   type        = map(string)
   default     = {}
 }
