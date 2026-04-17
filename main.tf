@@ -39,3 +39,21 @@ resource "aws_sqs_queue" "queues" {
     var.tags
   )
 }
+
+resource "aws_ebs_volume" "example" {
+  availability_zone = "us-east-2a"
+  size              = 40
+
+  tags = {
+    Name = "HelloWorld"
+  }
+}
+
+resource "aws_ecs_cluster" "foo" {
+  name = "white-hart"
+
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
+}
