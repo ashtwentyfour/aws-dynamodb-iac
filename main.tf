@@ -25,7 +25,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "example" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
+  instance_type = "c6a.2xlarge"
 
   tags = {
     Name = "HelloWorld"
