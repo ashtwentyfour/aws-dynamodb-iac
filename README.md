@@ -1,6 +1,6 @@
 # aws-dynamodb-iac
 
-Terraform configuration for creating multiple DynamoDB tables from a list input.
+Terraform configuration for creating multiple DynamoDB tables from a list input
 
 ## What it does
 
