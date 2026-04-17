@@ -13,6 +13,9 @@ resource "aws_dynamodb_table" "tables" {
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = var.hash_key_name
 
+  read_capacity  = 20
+  write_capacity = 20
+
   attribute {
     name = var.hash_key_name
     type = "S"
