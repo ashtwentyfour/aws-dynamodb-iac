@@ -1,5 +1,5 @@
 aws_region  = "us-east-1"
-table_names = ["demo"]
+table_names = ["demo", "customers"]
 
 tags = {
   Environment = "development"
