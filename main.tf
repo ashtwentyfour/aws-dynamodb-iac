@@ -7,31 +7,6 @@ locals {
   unique_queue_names = toset(var.queue_names)
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
-}
-
-resource "aws_instance" "example" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "c6a.2xlarge"
-
-  tags = {
-    Name = "HelloWorld"
-  }
-}
-
 resource "aws_dynamodb_table" "tables" {
   for_each = local.unique_table_names
 
@@ -46,7 +21,8 @@ resource "aws_dynamodb_table" "tables" {
 
   tags = merge(
     {
-      ManagedBy = "Terraform"
+      ManagedBy = "Terraform",
+      Name      = each.value
     },
     var.tags
   )
@@ -59,26 +35,10 @@ resource "aws_sqs_queue" "queues" {
 
   tags = merge(
     {
-      ManagedBy = "Terraform"
+      ManagedBy = "Terraform",
+      Name      = each.value
     },
     var.tags
   )
 }
 
-resource "aws_ebs_volume" "example" {
-  availability_zone = "us-east-2a"
-  size              = 40
-
-  tags = {
-    Name = "HelloWorld"
-  }
-}
-
-resource "aws_ecs_cluster" "foo" {
-  name = "white-hart"
-
-  setting {
-    name  = "containerInsights"
-    value = "enabled"
-  }
-}
