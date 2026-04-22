@@ -4,6 +4,7 @@ provider "aws" {
 
 locals {
   unique_table_names = toset(var.table_names)
+  unique_queue_names = toset(var.queue_names)
 }
 
 resource "aws_dynamodb_table" "tables" {
@@ -20,8 +21,25 @@ resource "aws_dynamodb_table" "tables" {
 
   tags = merge(
     {
-      ManagedBy = "Terraform"
+      ManagedBy = "Terraform",
+      Name      = each.value
     },
     var.tags
   )
 }
+
+resource "aws_sqs_queue" "queues" {
+  for_each = local.unique_queue_names
+
+  name = each.value
+
+  tags = merge(
+    {
+      ManagedBy = "Terraform",
+      Name      = each.value
+    },
+    var.tags
+  )
+}
+
+
